@@ -352,7 +352,7 @@ export default function TestToolsPage() {
                 logs.map((log) => {
                   let badgeColor = 'text-sky-400 bg-sky-950/20 border-sky-800/30';
                   let msgColor = 'text-slate-300';
-                  let Icon = InfoIcon;
+                  let Icon: React.ComponentType<any> = InfoIcon;
 
                   if (log.type === 'success') {
                     badgeColor = 'text-emerald-400 bg-emerald-950/20 border-emerald-800/30';
@@ -374,6 +374,9 @@ export default function TestToolsPage() {
                       className="p-3 bg-[#07070a]/90 border border-slate-900/60 rounded-lg flex items-start space-x-2.5 hover:border-slate-800/50 transition-all duration-150 animate-slideIn"
                     >
                       <div className="text-[9px] text-slate-600 font-medium select-none mt-0.5">{log.timestamp}</div>
+                      <div className="mt-0.5 flex-shrink-0">
+                        <Icon className="w-3.5 h-3.5" />
+                      </div>
                       <span className={`inline-flex px-1.5 py-0.5 rounded text-[8px] font-bold border uppercase tracking-wider ${badgeColor} select-none`}>
                         {log.type}
                       </span>
