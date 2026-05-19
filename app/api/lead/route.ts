@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Prisma } from '@prisma/client';
 import { prisma, seedIfNeeded } from '@/lib/db';
 import { allocateProvidersForLead } from '@/lib/allocation';
 import { notifyLeadAssigned } from '@/lib/realtime';
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Process lead creation and allocation within a single secure database transaction
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       // 1. Attempt to insert the lead
       let lead;
       try {

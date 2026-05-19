@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { Prisma } from '@prisma/client';
 import { prisma, seedIfNeeded } from '@/lib/db';
 import { notifyQuotasReset } from '@/lib/realtime';
 
@@ -6,7 +7,7 @@ export async function POST() {
   await seedIfNeeded();
 
   try {
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       // 1. Delete all assignments
       await tx.leadAssignment.deleteMany({});
       // 2. Delete all leads

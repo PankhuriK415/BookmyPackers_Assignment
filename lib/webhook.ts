@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { prisma } from './db';
 import { notifyQuotasReset } from './realtime';
 
@@ -35,7 +36,7 @@ export async function processWebhookSubscription(eventId: string): Promise<Webho
 
   try {
     // 2. Perform transactional verification and write
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       // Check again inside the transaction with a row lock or insert directly
       // In PostgreSQL, trying to insert directly with error catch is very standard,
       // but double check is also safe. Let's do a direct write:
